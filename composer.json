@@ -1,0 +1,19 @@
+{
+    "name": "ddnikolaevich/laravel-geo",
+    "description": "Determine the geo location of website visitors based on their IP addresses or Headers info from server",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Denis Davidov",
+            "email": "denis.davidov@instafxgroup.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "LaravelGeo\\": "src/"
+        }
+    },
+    "require": {}
+}

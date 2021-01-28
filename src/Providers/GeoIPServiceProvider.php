@@ -27,7 +27,7 @@ class GeoIPServiceProvider extends ServiceProvider
         $this->app->singleton(IGeoIP::class, function($app) {
             $request = app(Request::class);
             switch(App::environment()) {
-                case 'local1':
+                case 'local':
                     return new ServiceGeoIP($request);
                 default:
                     return new ServerGeoIP($request);

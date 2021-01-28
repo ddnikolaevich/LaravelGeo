@@ -46,6 +46,10 @@ class ServiceGeoIP implements IGeoIP
             }
             return $this->_base_answer;
         } catch (\Throwable $e) {
+            echo "<xmp>";
+            print_r($e);
+            echo "</xmp>";
+            die('here');
             return $this->_base_answer;
         }
     }

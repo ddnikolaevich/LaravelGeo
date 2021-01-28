@@ -21,11 +21,13 @@ class GeoIPServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom( __DIR__ . '/../config/geo.php', 'geo');
+
         // Регистрация сервиса GeoIp
         $this->app->singleton(IGeoIP::class, function($app) {
             $request = app(Request::class);
             switch(App::environment()) {
-                case 'local':
+                case 'local1':
                     return new ServiceGeoIP($request);
                 default:
                     return new ServerGeoIP($request);

@@ -9,11 +9,15 @@
             "email": "denis.davidov@instafxgroup.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "LaravelGeo\\": "src/"
         }
     },
-    "require": {}
+    "require": {
+        "illuminate/support": "^8.25",
+        "illuminate/http": "^8.25",
+        "illuminate/contracts": "^8.25"
+    }
 }

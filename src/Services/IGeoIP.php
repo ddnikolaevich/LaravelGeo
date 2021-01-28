@@ -16,5 +16,5 @@ interface IGeoIP
      *
      * @return array
      */
-    public function get(): array;
+    public function get(string $ip =  null): array;
 }

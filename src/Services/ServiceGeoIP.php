@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\{ Config, Http };
 
 class ServiceGeoIP implements IGeoIP
 {
-    private string $_client_api = 'https://geoip.contentdatapro.com/';
-    private string $_base_route = 'api/getgeo?ip=';
-    private  string $_client_ip;
-    private $_params_key;
-    private array $_base_answer = [
+    private string $clientApi = 'https://geoip.contentdatapro.com/';
+    private string $baseRoute = 'api/getgeo?ip=';
+    private  string $clientIp;
+    private $paramsKey;
+    private array $baseAnswer = [
         'GEOIP2_COUNTRY_CODE' => 'RU',
         'GEOIP2_COUNTRY_NAME' => 'Russia',
         'GEOIP2_CITY_COUNTRY_CODE' => 'RU',
@@ -28,39 +28,36 @@ class ServiceGeoIP implements IGeoIP
         'GEOIP2_SUBDIVISION_CODE' => 'SPE',
         'GEOIP2_SUBDIVISION_NAME' => 'St.-Petersburg'
     ];
-    private string $_base_lang = 'en';
+    private string $baseLang = 'en';
 
     public function __construct(Request $request)
     {
-        $this->_client_ip = $request->getClientIp();
+        $this->clientIp = $request->getClientIp();
         $this->_params_key = Config::get('geo.key_params');
     }
 
-    public function get(): array
+    public function get(string $ip = null): array
     {
+        $clientIp = $ip ?? $this->clientIp;
         try {
-            $http = Http::get($this->_client_api . $this->_base_route . $this->_client_ip);
+            $http = Http::get($this->clientApi . $this->baseRoute . $clientIp);
             if($http->successful())
             {
-                return $this->_format_answer($http->json());
+                return $this->formatAnswer($http->json());
             }
-            return $this->_base_answer;
+            return $this->baseAnswer;
         } catch (\Throwable $e) {
-            echo "<xmp>";
-            print_r($e);
-            echo "</xmp>";
-            die('here');
-            return $this->_base_answer;
+            return $this->baseAnswer;
         }
     }
 
-    private function _format_answer(array $data): array
+    private function formatAnswer(array $data): array
     {
         $response = [];
-        foreach($this->_params_key as $key => $val)
+        foreach($this->paramsKey as $key => $val)
         {
             $param = Arr::get($data, $val);
-            $response[$key] = is_array($param) ? $param[$this->_base_lang] : $param;
+            $response[$key] = is_array($param) ? $param[$this->baseLang] : $param;
         }
         return $response;
     }

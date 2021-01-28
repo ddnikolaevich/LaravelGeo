@@ -23,7 +23,7 @@ class ServerGeoIP implements IGeoIP
         });
     }
 
-    public function get(): array
+    public function get(string $ip = null): array
     {
         return array_intersect_key($this->_headers->all(), array_flip(array_keys($this->_params_key)));
     }

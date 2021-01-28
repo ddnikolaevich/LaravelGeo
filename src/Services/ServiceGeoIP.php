@@ -33,7 +33,7 @@ class ServiceGeoIP implements IGeoIP
     public function __construct(Request $request)
     {
         $this->clientIp = $request->getClientIp();
-        $this->_params_key = Config::get('geo.key_params');
+        $this->paramsKey = Config::get('geo.key_params');
     }
 
     public function get(string $ip = null): array
